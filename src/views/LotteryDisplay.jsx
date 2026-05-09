@@ -1,9 +1,8 @@
-import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLottery } from '../store/LotteryContext';
 import DiamondDisplay from '../components/Lottery/DiamondDisplay';
 import RollingNames from '../components/Lottery/RollingNames';
-import { Gift, Play, RotateCw, Trophy, ChevronRight } from 'lucide-react';
+import { Play, Trophy, ChevronRight } from 'lucide-react';
 import { playSound } from '../utils/soundManager';
 
 const LotteryDisplay = () => {

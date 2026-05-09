@@ -10,3 +10,4 @@ node_modules/
 # Claude Code local settings (machine-specific paths)
 .claude/settings.local.json
 .claude/worktrees/
+.superpowers/
