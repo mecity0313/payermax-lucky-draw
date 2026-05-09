@@ -69,13 +69,18 @@ test.describe('Lucky Draw Flow', () => {
         // Verify Round 3 Results
         await expect(page.getByText('Winners')).toBeVisible();
 
-        // ------------------ END: Return to Home ------------------
-        // The last "Next Round" click returns to Home
+        // ------------------ END: Show End Page ------------------
+        // The last "Next Round" click goes to the End Page
         const finalButton = page.getByRole('button', { name: /Next Round/i });
         await expect(finalButton).toBeVisible();
         await finalButton.click();
 
-        // Verify back on Home Page
-        await expect(page.getByText('Waiting for Activity')).toBeVisible();
+        // Verify End Page is shown (not Home)
+        await expect(page.getByText('THANK YOU')).toBeVisible();
+        await expect(page.getByText('抽奖圆满结束')).toBeVisible();
+        await expect(page.getByText('请中奖的同学前往')).toBeVisible();
+        await expect(page.getByText('领奖区')).toBeVisible();
+        // Verify Home page text is NOT shown
+        await expect(page.getByText('Waiting for Activity')).not.toBeVisible();
     });
 });

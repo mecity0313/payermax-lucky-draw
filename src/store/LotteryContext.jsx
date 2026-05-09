@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useMemo, useEffect } from 'react';
+import { createContext, useContext, useState, useMemo, useEffect, useCallback } from 'react';
 import { ROUNDS, generateParticipants } from '../config/lotteryConfig';
 import confetti from 'canvas-confetti';
 
@@ -19,19 +19,18 @@ export const LotteryProvider = ({ children }) => {
     }, []);
 
     const currentRound = useMemo(() => ROUNDS[currentRoundIndex], [currentRoundIndex]);
-    const isFinished = currentRoundIndex >= ROUNDS.length;
 
     // Actions
-    const startEvent = () => {
+    const startEvent = useCallback(() => {
         setCurrentPhase('WAIT');
-    };
+    }, []);
 
-    const startDrawing = () => {
+    const startDrawing = useCallback(() => {
         if (currentPhase !== 'WAIT') return;
         setCurrentPhase('DRAWING');
-    };
+    }, [currentPhase]);
 
-    const stopDrawing = () => {
+    const stopDrawing = useCallback(() => {
         if (currentPhase !== 'DRAWING') return;
 
         // Select winners randomly from non-winners
@@ -51,20 +50,16 @@ export const LotteryProvider = ({ children }) => {
 
         setCurrentPhase('RESULT');
         fireConfetti();
-    };
+    }, [currentPhase, winners, participants, currentRound]);
 
-    const nextRound = () => {
+    const nextRound = useCallback(() => {
         if (currentRoundIndex < ROUNDS.length - 1) {
             setCurrentRoundIndex(prev => prev + 1);
             setCurrentPhase('WAIT');
         } else {
-            setCurrentPhase('HOME'); // Or 'END'
-            // Optional: Reset or show final summary
-            // For now, loop back to Home or stay at Result? 
-            // User says: "5. Return to home after event ends"
-            resetLottery();
+            setCurrentPhase('END');
         }
-    };
+    }, [currentRoundIndex]);
 
     const resetLottery = () => {
         setCurrentPhase('HOME');
@@ -114,7 +109,7 @@ export const LotteryProvider = ({ children }) => {
 
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [currentPhase, currentRoundIndex]); // Re-bind when phase changes
+    }, [currentPhase, currentRoundIndex, startEvent, startDrawing, stopDrawing, nextRound]);
 
     const value = {
         currentPhase,
@@ -132,4 +127,5 @@ export const LotteryProvider = ({ children }) => {
     return <LotteryContext.Provider value={value}>{children}</LotteryContext.Provider>;
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useLottery = () => useContext(LotteryContext);

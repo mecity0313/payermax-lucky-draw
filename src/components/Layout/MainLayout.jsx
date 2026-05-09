@@ -1,7 +1,6 @@
-import React from 'react';
 import ScrollList from './ScrollList';
 import { useLottery } from '../../store/LotteryContext';
-import { Sparkles, Users } from 'lucide-react';
+import { Users } from 'lucide-react';
 
 const MainLayout = ({ children }) => {
     const { participants } = useLottery();

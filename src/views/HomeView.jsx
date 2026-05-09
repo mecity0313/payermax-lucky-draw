@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import DiamondDisplay from '../components/Lottery/DiamondDisplay';
 import { useLottery } from '../store/LotteryContext';

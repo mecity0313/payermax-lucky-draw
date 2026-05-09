@@ -1,7 +1,7 @@
-import React from 'react';
 import MainLayout from './components/Layout/MainLayout';
 import HomeView from './views/HomeView';
 import LotteryDisplay from './views/LotteryDisplay';
+import EndView from './views/EndView';
 import { useLottery } from './store/LotteryContext';
 
 function App() {
@@ -13,6 +13,7 @@ function App() {
             {(currentPhase === 'WAIT' || currentPhase === 'DRAWING' || currentPhase === 'RESULT') && (
                 <LotteryDisplay />
             )}
+            {currentPhase === 'END' && <EndView />}
         </MainLayout>
     );
 }

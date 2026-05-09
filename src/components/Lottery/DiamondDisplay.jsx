@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 
 const DiamondDisplay = ({ children, size = 'default', rotating = true }) => {
