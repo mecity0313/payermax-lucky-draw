@@ -1,0 +1,17 @@
+{
+    "enabledMcpjsonServers": [
+        "filesystem"
+    ],
+    "enableAllProjectMcpServers": true,
+    "mcpServers": {
+        "playwright-test": {
+            "command": "npx",
+            "args": [
+                "@anthropic-ai/mcp-playwright-test"
+            ],
+            "env": {
+                "PLAYWRIGHT_CONFIG": "./playwright.config.ts"
+            }
+        }
+    }
+}
